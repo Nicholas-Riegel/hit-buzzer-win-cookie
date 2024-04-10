@@ -4,6 +4,8 @@
 
 User gets certain number of tries to find cookie on grid.
 
+### Game may be viewed here: [https://nicholas-riegel.github.io/hit-buzzer-win-cookie/](https://nicholas-riegel.github.io/hit-buzzer-win-cookie/)
+
 ## Project Plan
 
 Wednesday, April 10, 2024
