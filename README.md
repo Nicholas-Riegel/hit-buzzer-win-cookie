@@ -2,7 +2,7 @@
 
 ## Description
 
-User gets certain number of tries to fine cookie on grid.
+User gets certain number of tries to find cookie on grid.
 
 ## Project Plan
 
@@ -11,7 +11,7 @@ Wednesday, April 10
 - [ ] Create project plan
 - [ ] Work on MVP
 
-Thursday, Aprile 11
+Thursday, April 11
 
 - [ ] Complete MVP
 - [ ] Upload on GitHub Pages
