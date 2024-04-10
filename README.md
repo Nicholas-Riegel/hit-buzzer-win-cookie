@@ -28,11 +28,14 @@ Saturday, April 13, 2024
 - [ ] make project responsive
 - [ ] upload on Github
 
-Monday, April 14, 2024
+Sunday, April 14, 2024
 
-TBD
+- [ ] continue to make improvements
 
-Tuesday, April 15, 2024
+Monday, April 15, 2024
 
-TBD
+- [ ] continue to make improvements
+
+Tuesday, April 16, 2024
+
 - [ ] deliver game by EOD
