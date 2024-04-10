@@ -1,34 +1,39 @@
 let gameArray = [
-    0, 1, 2, 
-    3, 4, 5, 
-    6, 7, 8
+    0, 1, 2, 3, 
+    4, 5, 6, 7, 
+    8, 9, 10, 11,
+    12, 13, 14, 15
 ]
 
-const topRow = [0, 1, 2]
-const midRow = [3, 4, 5]
-const bottomRow = [6, 7, 8]
+const firstRow = [0, 1, 2, 3]
+const secondRow = [4, 5, 6, 7]
+const thirdRow = [8, 9, 10, 11]
+const fourthRow = [12, 13, 14, 15]
 
-const firstColumn = [0, 3, 6]
-const secondColumn = [1, 4, 7]
-const thirdColumn = [2, 5, 8]
+const firstColumn = [0, 4, 8, 12]
+const secondColumn = [1, 5, 9, 13]
+const thirdColumn = [2, 6, 10, 14]
+const fourthColumn = [3, 7, 11, 15]
 
 const rows = [
-    topRow,
-    midRow,
-    bottomRow
+    firstRow,
+    secondRow,
+    thirdRow,
+    fourthRow
 ]
 
 const columns = [
     firstColumn,
     secondColumn,
-    thirdColumn
+    thirdColumn,
+    fourthColumn
 ]
 
 let cookieNumber = null;
 
 const startGame = () => {
     // clear everything
-    gameArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    gameArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     document.querySelectorAll('.cell').forEach(x => {
         x.innerText = ''
     })
@@ -36,7 +41,7 @@ const startGame = () => {
     console.clear()
 
     // set new place for cookie
-    cookieNumber = Math.floor(Math.random() * 9)
+    cookieNumber = Math.floor(Math.random() * 16)
     gameArray[cookieNumber] = 'x'
 }
 
