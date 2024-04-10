@@ -8,7 +8,7 @@ User gets certain number of tries to fine cookie on grid.
 
 Wednesday, April 10
 
-[ ] Create project plan
+- [ ] Create project plan
 - [] Work on MVP
 
 Thursday, Aprile 11
