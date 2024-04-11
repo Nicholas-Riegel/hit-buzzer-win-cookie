@@ -32,6 +32,7 @@ const columns = [
 let cookieNumber = null;
 let columnNumber = 4
 
+// create board
 const createBoard = (colNo) => {
     const body = document.querySelector('body')
     const board = document.createElement('section')
@@ -47,7 +48,31 @@ const createBoard = (colNo) => {
     body.prepend(board)
 }
 
-createBoard(columnNumber)
+// make cells clickable, game playable
+const cellsClickable = (cookieNumber) => {
+    
+    document.querySelectorAll('.cell').forEach(x =>{
+        x.addEventListener('click', e => {
+            const id = parseInt(e.target.id)
+            if (gameArray[id] === 'x'){
+                e.target.innerText = 'x'
+                document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
+            } else {
+                e.target.innerText = 'o';
+                rows.forEach(x => {
+                    if (x.includes(id) && x.includes(cookieNumber)){
+                        document.querySelector('h2').innerText = "It's in this row!";
+                    }
+                })
+                columns.forEach(x => {
+                    if (x.includes(id) && x.includes(cookieNumber)){
+                        document.querySelector('h2').innerText = "It's in this column!";
+                    }
+                })
+            }
+        })
+    })
+}
 
 const startGame = (colNo) => {
     // clear everything
@@ -55,43 +80,27 @@ const startGame = (colNo) => {
     for(let i = 0; i < colNo ** 2; i++){
         gameArray.push(i)
     }
-    document.querySelectorAll('.cell').forEach(x => {
-        x.innerText = ''
-    })
+    if (document.querySelector('#gameboard')){
+        document.querySelector('#gameboard').remove();
+    }
+
     document.querySelector('h2').innerText = ''
     console.clear()
 
     // create new board
     createBoard(colNo)
+
     // set new place for cookie
     cookieNumber = Math.floor(Math.random() * colNo ** 2)
     gameArray[cookieNumber] = 'x'
+
+    // make cells clickable etc.
+    cellsClickable(cookieNumber)
 }
 
-// startGame()
+startGame(columnNumber)
 
-document.querySelectorAll('.cell').forEach(x =>{
-    x.addEventListener('click', e => {
-        const id = parseInt(e.target.id)
-        if (gameArray[id] === 'x'){
-            e.target.innerText = 'x'
-            document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
-        } else {
-            e.target.innerText = 'o';
-            rows.forEach(x => {
-                if (x.includes(id) && x.includes(cookieNumber)){
-                    document.querySelector('h2').innerText = "It's in this row!";
-                }
-            })
-            columns.forEach(x => {
-                if (x.includes(id) && x.includes(cookieNumber)){
-                    document.querySelector('h2').innerText = "It's in this column!";
-                }
-            })
-        }
-    })
-})
 
 document.querySelector('#restart').addEventListener('click', e => {
-    startGame();
+    startGame(columnNumber);
 })
