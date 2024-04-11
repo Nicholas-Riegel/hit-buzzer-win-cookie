@@ -55,13 +55,18 @@ const cellsClickable = (cookieNumber) => {
         x.addEventListener('click', e => {
             const id = parseInt(e.target.id)
             if (gameArray[id] === 'o'){
-                e.target.innerText = 'o'
+                // e.target.innerText = 'o'
+                const cookiePic = document.createElement('img')
+                cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
+                cookiePic.style.maxWidth = '47px'
+                cookiePic.style.maxHeight = '47px'
+                e.target.appendChild(cookiePic)
                 document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
             } else {
+                e.target.innerText = 'x'
                 document.querySelector('h2').innerText = '';
-                e.target.innerText = 'x';
                 rows.forEach(x => {
-                    if (x.includes(id) && x.includes(cookieNumber)){
+                    if (x.includes(id) && x.includes(cookieNumber)){    
                         document.querySelector('h2').innerText = "It's in this row!";
                     }
                 })
