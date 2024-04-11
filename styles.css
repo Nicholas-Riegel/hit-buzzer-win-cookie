@@ -8,7 +8,7 @@
 body{
     height: 100vh;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -28,3 +28,13 @@ body{
     /* width: 200px; */
     /* grid-template-columns: repeat(4, 1fr); */
 }
+
+/* #numberColumns {
+    display: inline;
+    background-color: red;
+}
+
+#getColNo {
+    display: inline;
+    background-color: green;
+} */
