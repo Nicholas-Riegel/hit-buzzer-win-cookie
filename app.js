@@ -3,7 +3,7 @@ let rows = []
 let columns = []
 
 let cookieNumber = null;
-let columnNumber = 2
+let columnNumber = 3
 
 // create board
 const createBoard = (colNo) => {
@@ -104,9 +104,9 @@ const startGame = (colNo) => {
     // make cells clickable etc.
     cellsClickable(cookieNumber)
 
-    console.log(`gameArray: ${gameArray}`);
-    console.log(`rows: ${rows}`);
-    console.log(`columns: ${columns}`);
+    console.log('gameArray:', gameArray);
+    console.log('rows:', rows);
+    console.log('columns:', columns);
 }
 
 
@@ -116,7 +116,14 @@ document.querySelector('#restart').addEventListener('click', e => {
 })
 
 document.querySelector('#getColNo').addEventListener('click', e=>{
-    columnNumber = parseInt(document.querySelector('#numberColumns').value);
+    const inputValue = parseInt(document.querySelector('#numberColumns').value);
+    if (inputValue > 10){
+        columnNumber = 10;
+    } else if (inputValue < 3){
+        columnNumber = 3
+    } else {
+        columnNumber = inputValue;
+    }
     startGame(columnNumber)
 })
 
