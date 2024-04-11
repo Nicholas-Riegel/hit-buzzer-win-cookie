@@ -1,9 +1,10 @@
-let gameArray = [
-    0, 1, 2, 3, 
-    4, 5, 6, 7, 
-    8, 9, 10, 11,
-    12, 13, 14, 15
-]
+// [
+//     0, 1, 2, 3, 
+//     4, 5, 6, 7, 
+//     8, 9, 10, 11,
+//     12, 13, 14, 15
+// ]
+let gameArray = []
 
 const firstRow = [0, 1, 2, 3]
 const secondRow = [4, 5, 6, 7]
@@ -46,6 +47,37 @@ const createBoard = (colNo) => {
         board.appendChild(cell)
     }
     body.prepend(board)
+}
+
+// calculate rows
+const calculateRows = (numberColumns) => {
+    const rows  = []
+    let k = 0
+    for (let i = 0; i < numberColumns; i++){
+        const row = []
+        for(let j = 0; j < numberColumns; j++){
+            row.push(k)
+            k++
+        }
+        rows.push(row)
+    }
+    return rows;
+}
+
+// calculate columns
+const calculateColumns = (numberColumns) => {
+    const columns  = []
+    let k = 0
+    for (let i = 0; i < numberColumns; i++){
+        const column = []
+        for(let j = 0; j < numberColumns; j++){
+            column.push(k + i)
+            k += numberColumns
+        }
+        k = 0
+        columns.push(column)
+    }
+    return columns;
 }
 
 // make cells clickable, game playable
