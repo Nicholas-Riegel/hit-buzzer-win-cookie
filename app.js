@@ -5,6 +5,11 @@ let columns = []
 let cookieNumber = null;
 let columnNumber = 3
 
+const cookiePic = document.createElement('img')
+cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
+cookiePic.style.maxWidth = '47px'
+cookiePic.style.maxHeight = '47px'
+
 // create board
 const createBoard = (colNo) => {
     const gameboardContainer = document.querySelector('#gameboard-container')
@@ -56,10 +61,6 @@ const cellsClickable = (cookieNumber) => {
             const id = parseInt(e.target.id)
             if (gameArray[id] === 'o'){
                 // e.target.innerText = 'o'
-                const cookiePic = document.createElement('img')
-                cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
-                cookiePic.style.maxWidth = '47px'
-                cookiePic.style.maxHeight = '47px'
                 e.target.appendChild(cookiePic)
                 document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
             } else {
