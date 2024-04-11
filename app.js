@@ -7,7 +7,7 @@ let columnNumber = 3
 
 // create board
 const createBoard = (colNo) => {
-    const body = document.querySelector('body')
+    const gameboardContainer = document.querySelector('#gameboard-container')
     const board = document.createElement('section')
     board.setAttribute('id', 'gameboard')
     board.style.width = `${50 * colNo}px`
@@ -18,7 +18,7 @@ const createBoard = (colNo) => {
         cell.setAttribute('id', i)
         board.appendChild(cell)
     }
-    body.prepend(board)
+    gameboardContainer.appendChild(board)
 }
 
 // calculate rows
