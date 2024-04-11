@@ -36,7 +36,7 @@ const calculateRows = (numberColumns) => {
     return rows;
 }
 
-console.log(calculateRows(3));
+console.log(calculateRows(2));
 
 const calculateColumns = (numberColumns) => {
     const columns  = []
@@ -53,4 +53,4 @@ const calculateColumns = (numberColumns) => {
     return columns;
 }
 
-console.log(calculateColumns(3));
+console.log(calculateColumns(2));
