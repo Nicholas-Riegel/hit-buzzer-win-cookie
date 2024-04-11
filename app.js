@@ -1,37 +1,9 @@
-// [
-//     0, 1, 2, 3, 
-//     4, 5, 6, 7, 
-//     8, 9, 10, 11,
-//     12, 13, 14, 15
-// ]
 let gameArray = []
-
-const firstRow = [0, 1, 2, 3]
-const secondRow = [4, 5, 6, 7]
-const thirdRow = [8, 9, 10, 11]
-const fourthRow = [12, 13, 14, 15]
-
-const firstColumn = [0, 4, 8, 12]
-const secondColumn = [1, 5, 9, 13]
-const thirdColumn = [2, 6, 10, 14]
-const fourthColumn = [3, 7, 11, 15]
-
-const rows = [
-    firstRow,
-    secondRow,
-    thirdRow,
-    fourthRow
-]
-
-const columns = [
-    firstColumn,
-    secondColumn,
-    thirdColumn,
-    fourthColumn
-]
+const rows = []
+const columns = []
 
 let cookieNumber = null;
-let columnNumber = 4
+let columnNumber = 7
 
 // create board
 const createBoard = (colNo) => {
@@ -50,34 +22,30 @@ const createBoard = (colNo) => {
 }
 
 // calculate rows
-const calculateRows = (numberColumns) => {
-    const rows  = []
+const calculateRows = (colNo) => {
     let k = 0
-    for (let i = 0; i < numberColumns; i++){
+    for (let i = 0; i < colNo; i++){
         const row = []
-        for(let j = 0; j < numberColumns; j++){
+        for(let j = 0; j < colNo; j++){
             row.push(k)
             k++
         }
         rows.push(row)
     }
-    return rows;
 }
 
 // calculate columns
-const calculateColumns = (numberColumns) => {
-    const columns  = []
+const calculateColumns = (colNo) => {
     let k = 0
-    for (let i = 0; i < numberColumns; i++){
+    for (let i = 0; i < colNo; i++){
         const column = []
-        for(let j = 0; j < numberColumns; j++){
+        for(let j = 0; j < colNo; j++){
             column.push(k + i)
-            k += numberColumns
+            k += colNo
         }
         k = 0
         columns.push(column)
     }
-    return columns;
 }
 
 // make cells clickable, game playable
@@ -109,22 +77,26 @@ const cellsClickable = (cookieNumber) => {
 const startGame = (colNo) => {
     // clear everything
     gameArray.length = 0
-    for(let i = 0; i < colNo ** 2; i++){
-        gameArray.push(i)
-    }
     if (document.querySelector('#gameboard')){
         document.querySelector('#gameboard').remove();
     }
-
     document.querySelector('h2').innerText = ''
     console.clear()
-
+    
     // create new board
     createBoard(colNo)
-
+    
+    // reset game array
+    for(let i = 0; i < colNo ** 2; i++){
+        gameArray.push(i)
+    }
     // set new place for cookie
     cookieNumber = Math.floor(Math.random() * colNo ** 2)
     gameArray[cookieNumber] = 'x'
+
+    // calculate rows and columns
+    calculateColumns(colNo)
+    calculateRows(colNo)
 
     // make cells clickable etc.
     cellsClickable(cookieNumber)
