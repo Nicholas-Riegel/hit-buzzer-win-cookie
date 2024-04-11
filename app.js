@@ -30,22 +30,45 @@ const columns = [
 ]
 
 let cookieNumber = null;
+let columnNumber = 4
 
-const startGame = () => {
+const createBoard = (colNo) => {
+    const body = document.querySelector('body')
+    const board = document.createElement('section')
+    board.setAttribute('id', 'gameboard')
+    board.style.width = `${50 * colNo}px`
+    board.style.gridTemplateColumns = `repeat(${colNo}, 1fr)`
+    for(let i = 0; i < colNo ** 2; i++){
+        const cell = document.createElement('div')
+        cell.setAttribute('class', 'cell')
+        cell.setAttribute('id', i)
+        board.appendChild(cell)
+    }
+    body.prepend(board)
+}
+
+createBoard(columnNumber)
+
+const startGame = (colNo) => {
     // clear everything
-    gameArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    gameArray.length = 0
+    for(let i = 0; i < colNo ** 2; i++){
+        gameArray.push(i)
+    }
     document.querySelectorAll('.cell').forEach(x => {
         x.innerText = ''
     })
     document.querySelector('h2').innerText = ''
     console.clear()
 
+    // create new board
+    createBoard(colNo)
     // set new place for cookie
-    cookieNumber = Math.floor(Math.random() * 16)
+    cookieNumber = Math.floor(Math.random() * colNo ** 2)
     gameArray[cookieNumber] = 'x'
 }
 
-startGame()
+// startGame()
 
 document.querySelectorAll('.cell').forEach(x =>{
     x.addEventListener('click', e => {
