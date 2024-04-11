@@ -38,3 +38,9 @@ body{
     display: inline;
     background-color: green;
 } */
+
+#dropZone {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+}

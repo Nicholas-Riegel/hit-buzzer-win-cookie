@@ -9,6 +9,12 @@ const cookiePic = document.createElement('img')
 cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
 cookiePic.style.maxWidth = '47px'
 cookiePic.style.maxHeight = '47px'
+cookiePic.setAttribute('id', 'cookiePic')
+cookiePic.setAttribute('cursor', 'move')
+cookiePic.setAttribute('draggable', 'true')
+cookiePic.addEventListener('dragstart', e => {
+    console.log('dragging');
+})
 
 // create board
 const createBoard = (colNo) => {
@@ -63,6 +69,18 @@ const cellsClickable = (cookieNumber) => {
                 // e.target.innerText = 'o'
                 e.target.appendChild(cookiePic)
                 document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
+                // cookie dragging: 
+                    const dropZone = document.querySelector('#dropZone')
+                    // this code was gotten for Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
+                    cookiePic.addEventListener('dragstart', e=>{
+                        return false;
+                    })
+                    dropZone.addEventListener('dragover', e=>{
+                        e.preventDefault()
+                    })
+                    dropZone.addEventListener('drop', e=>{
+                        dropZone.prepend(cookiePic)
+                    })
             } else {
                 e.target.innerText = 'x'
                 document.querySelector('h2').innerText = '';
