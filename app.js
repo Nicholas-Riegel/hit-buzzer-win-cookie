@@ -3,7 +3,7 @@ let rows = []
 let columns = []
 
 let cookieNumber = null;
-let columnNumber = 3
+let columnNumber = 4
 
 const cookiePic = document.createElement('img')
 cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
@@ -12,9 +12,7 @@ cookiePic.style.maxHeight = '47px'
 cookiePic.setAttribute('id', 'cookiePic')
 cookiePic.setAttribute('cursor', 'move')
 cookiePic.setAttribute('draggable', 'true')
-cookiePic.addEventListener('dragstart', e => {
-    console.log('dragging');
-})
+
 
 // create board
 const createBoard = (colNo) => {
@@ -80,6 +78,7 @@ const cellsClickable = (cookieNumber) => {
                     })
                     dropZone.addEventListener('drop', e=>{
                         dropZone.prepend(cookiePic)
+                        startGame(columnNumber)
                     })
             } else {
                 e.target.innerText = 'x'
@@ -142,8 +141,8 @@ document.querySelector('#getColNo').addEventListener('click', e=>{
     const inputValue = parseInt(document.querySelector('#numberColumns').value);
     if (inputValue > 10){
         columnNumber = 10;
-    } else if (inputValue < 3){
-        columnNumber = 3
+    } else if (inputValue < 4){
+        columnNumber = 4
     } else {
         columnNumber = inputValue;
     }

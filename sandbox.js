@@ -60,18 +60,3 @@
 //     return false;
 // })
 
-// const dropZone = document.querySelector('#dropZone')
-// const image = document.querySelector('#cookiePic')
-// // const imageDiv = document.querySelector('#image-div')
-
-// image.addEventListener('dragstart', e=>{
-//     return false;
-// })
-
-// dropZone.addEventListener('dragover', e=>{
-//     e.preventDefault()
-// })
-
-// dropZone.addEventListener('drop', e=>{
-//     dropZone.prepend(image)
-// })

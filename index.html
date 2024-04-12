@@ -8,15 +8,20 @@
 </head>
 <body>
     <h1>Find the Cookie!!!</h1>
-    <!-- <img src="./cookie-pic.png" alt="" id="static-cookie-pic" style="max-width: 50px; max-height: 50px" draggable="true"> -->
-    <section id="gameboard-container"></section>
-    <button id="restart">Restart</button>
+    <main>
+        <section id="gameboard-container"></section>
+        <div id="dropZone">
+            <h4>Move cookie here when found!</h4>
+        </div>
+    </main>
     <h2></h2>
-    <label for="numberColumns">Enter the number of columns from 3 to 10:
-        <input type="number" id="numberColumns" min="3" max="10">
+    <button id="restart">Restart</button>
+    <label for="numberColumns">Enter the number of columns from 4 to 10:</label>
+    <div id="number-input-div">
+        <input type="number" id="numberColumns" min="4" max="10">
         <button id="getColNo">Enter</button>
-    </label>
-    <div id="dropZone"></div>
+    </div>
+    
     <script src="app.js"></script>
     <script src="sandbox.js"></script>
 </body>

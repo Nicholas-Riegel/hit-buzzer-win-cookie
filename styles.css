@@ -11,36 +11,74 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(163, 101, 221);
+    color: whitesmoke;
 }
 
 .cell {
     width: 50px;
     aspect-ratio: 1/1;
-    border: 1px solid black;
+    border: 1px solid whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 
+h1{
+    margin-bottom: 5%;
+}
+
+main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
 #gameboard {
     display: grid;
-    /* width: 200px; */
-    /* grid-template-columns: repeat(4, 1fr); */
 }
-
-/* #numberColumns {
-    display: inline;
-    background-color: red;
-}
-
-#getColNo {
-    display: inline;
-    background-color: green;
-} */
 
 #dropZone {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background-color: gray;
+    margin-left: 50px;
+    aspect-ratio: 1/1;
+}
+
+#restart{
+    font-size: 20px;
+    padding: 1% 3%;
+    border-radius: 5%;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+label{
+    margin-top: 3%;
+    margin-bottom: 2%;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+}
+
+#number-input-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#number-input-div button{
+    margin-left: 10px;
+    font-size: 20px;
+    padding: 10px 30px;
+}
+
+#number-input-div input {
+    aspect-ratio: 1/1;
+    font-size: 20px;
+    height: 80%;
 }
