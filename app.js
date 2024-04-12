@@ -5,13 +5,13 @@ let columns = []
 let cookieNumber = null;
 let columnNumber = 4
 
-const cookiePic = document.createElement('img')
-cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
-cookiePic.style.maxWidth = '47px'
-cookiePic.style.maxHeight = '47px'
-cookiePic.setAttribute('id', 'cookiePic')
-cookiePic.setAttribute('cursor', 'move')
-cookiePic.setAttribute('draggable', 'true')
+let cookiePic = null;
+
+const dropZone = document.querySelector('#dropZone')
+// this code was gotten for Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
+dropZone.addEventListener('dragover', e=>{
+    e.preventDefault()
+})
 
 
 // create board
@@ -57,6 +57,18 @@ const calculateColumns = (colNo) => {
     }
 }
 
+// create cookie 
+const createCookie = () => {    
+    const cookiePic = document.createElement('img')
+    cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
+    cookiePic.style.maxWidth = '47px'
+    cookiePic.style.maxHeight = '47px'
+    cookiePic.setAttribute('class', 'cookiePic')
+    cookiePic.setAttribute('cursor', 'move')
+    cookiePic.setAttribute('draggable', 'true')
+    return cookiePic;
+}
+
 // make cells clickable, game playable
 const cellsClickable = (cookieNumber) => {
     
@@ -64,22 +76,15 @@ const cellsClickable = (cookieNumber) => {
         x.addEventListener('click', e => {
             const id = parseInt(e.target.id)
             if (gameArray[id] === 'o'){
-                // e.target.innerText = 'o'
+                cookiePic = createCookie()
                 e.target.appendChild(cookiePic)
                 document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
                 // cookie dragging: 
-                    const dropZone = document.querySelector('#dropZone')
-                    // this code was gotten for Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
-                    cookiePic.addEventListener('dragstart', e=>{
-                        return false;
-                    })
-                    dropZone.addEventListener('dragover', e=>{
-                        e.preventDefault()
-                    })
-                    dropZone.addEventListener('drop', e=>{
-                        dropZone.prepend(cookiePic)
-                        startGame(columnNumber)
-                    })
+                // this code was gotten for Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
+                dropZone.addEventListener('drop', e=>{
+                    dropZone.appendChild(cookiePic)
+                    startGame(columnNumber)
+                })
             } else {
                 e.target.innerText = 'x'
                 document.querySelector('h2').innerText = '';
@@ -108,7 +113,7 @@ const startGame = (colNo) => {
     }
     document.querySelector('h2').innerText = ''
     document.querySelector('#numberColumns').value = ''
-    console.clear()
+    // console.clear()
     
     // create new board
     createBoard(colNo)
@@ -128,13 +133,28 @@ const startGame = (colNo) => {
     // make cells clickable etc.
     cellsClickable(cookieNumber)
 
-    console.log('gameArray:', gameArray);
-    console.log('rows:', rows);
-    console.log('columns:', columns);
+    // console.log('gameArray:', gameArray);
+    // console.log('rows:', rows);
+    // console.log('columns:', columns);
 }
 
 document.querySelector('#restart').addEventListener('click', e => {
+    // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
+    const parent = document.getElementById('dropZone');
+
+    // Get all children with the class 'remove'
+    const childrenToRemove = parent.getElementsByClassName('cookiePic');
+
+    // Convert HTMLCollection to an array
+    const childrenArray = Array.from(childrenToRemove);
+
+    // Remove each child from the parent
+    childrenArray.forEach(child => {
+    // childrenToRemove.forEach(child => {
+        parent.removeChild(child);
+    });
     startGame(columnNumber);
+    // window.location.reload()
 })
 
 document.querySelector('#getColNo').addEventListener('click', e=>{
