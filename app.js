@@ -1,3 +1,5 @@
+// -----------------------------------Constants and Variables-------------------------------------------
+
 let gameArray = []
 let rows = []
 let columns = []
@@ -7,12 +9,64 @@ let columnNumber = 4
 
 let cookiePic = null;
 
+let timeLeft = 20
+
+let highScore = 0
+let playerScore = 0
+
+const timer = document.querySelector('#timer')
+timer.innerText = timeLeft
+let timerInterval = null;
+
+const updateTimer = () => {
+    // ChatGPT helped with this code: https://chat.openai.com/c/6a37ffb8-48c9-43fd-9a5a-f738bf2bf722
+    timer.innerText = timeLeft
+    timeLeft--
+    if (timeLeft < 0) {
+        clearInterval(timerInterval);
+        timer.innerText = "Time's up!";
+    }
+}
+
+
+// -----------------------------------QuerySelectors----------------------------------------------------
+
+document.querySelector('#your-score').innerText = playerScore
+document.querySelector('#high-score').innerText = highScore
+
 const dropZone = document.querySelector('#dropZone')
 // this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
 dropZone.addEventListener('dragover', e=>{
     e.preventDefault()
 })
 
+document.querySelector('#restart').addEventListener('click', e => {
+    // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
+    const parent = document.getElementById('dropZone');
+    const childrenToRemove = parent.getElementsByClassName('cookiePic');
+    const childrenArray = Array.from(childrenToRemove);
+    childrenArray.forEach(x => {
+        parent.removeChild(x);
+    });
+    playerScore = 0
+    document.querySelector('#your-score').innerText = playerScore
+    startGame(columnNumber);
+    // window.location.reload()
+})
+
+document.querySelector('#getColNo').addEventListener('click', e=>{
+    const inputValue = parseInt(document.querySelector('#numberColumns').value);
+    if (inputValue > 10){
+        columnNumber = 10;
+    } else if (inputValue < 4){
+        columnNumber = 4
+    } else {
+        columnNumber = inputValue;
+    }
+    startGame(columnNumber)
+})
+
+// -----------------------------------Functions---------------------------------------------------------
 
 // create board
 const createBoard = (colNo) => {
@@ -76,6 +130,7 @@ const cellsClickable = (cookieNumber) => {
     document.querySelectorAll('.cell').forEach(x =>{
         x.addEventListener('click', e => {
             const id = parseInt(e.target.id)
+            timerInterval = setInterval(updateTimer, 1000);
             if (gameArray[id] === 'o'){
                 cookiePic = createCookie()
                 e.target.appendChild(cookiePic)
@@ -83,6 +138,11 @@ const cellsClickable = (cookieNumber) => {
                 // enable cookie dragging: this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
                 dropZone.addEventListener('drop', e=>{
                     dropZone.appendChild(cookiePic)
+                    playerScore = dropZone.querySelectorAll('.cookiePic').length;
+                    document.querySelector('#your-score').innerText = playerScore;
+                    highScore++
+                    document.querySelector('#high-score').innerText = highScore;
+                    console.log(playerScore);
                     startGame(columnNumber)
                 })
             } else {
@@ -113,6 +173,7 @@ const startGame = (colNo) => {
     }
     document.querySelector('h2').innerText = ''
     document.querySelector('#numberColumns').value = ''
+
     // console.clear()
     
     // create new board
@@ -125,41 +186,19 @@ const startGame = (colNo) => {
     // set new place for cookie
     cookieNumber = Math.floor(Math.random() * colNo ** 2)
     gameArray[cookieNumber] = 'o'
-
+    
     // calculate rows and columns
     calculateColumns(colNo)
     calculateRows(colNo)
-
+    
     // make cells clickable etc.
     cellsClickable(cookieNumber)
-
+    
     // console.log('gameArray:', gameArray);
     // console.log('rows:', rows);
     // console.log('columns:', columns);
 }
 
-document.querySelector('#restart').addEventListener('click', e => {
-    // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
-    const parent = document.getElementById('dropZone');
-    const childrenToRemove = parent.getElementsByClassName('cookiePic');
-    const childrenArray = Array.from(childrenToRemove);
-    childrenArray.forEach(x => {
-        parent.removeChild(x);
-    });
-    startGame(columnNumber);
-    // window.location.reload()
-})
-
-document.querySelector('#getColNo').addEventListener('click', e=>{
-    const inputValue = parseInt(document.querySelector('#numberColumns').value);
-    if (inputValue > 10){
-        columnNumber = 10;
-    } else if (inputValue < 4){
-        columnNumber = 4
-    } else {
-        columnNumber = inputValue;
-    }
-    startGame(columnNumber)
-})
+// -----------------------------------Start Game--------------------------------------------------------
 
 startGame(columnNumber)

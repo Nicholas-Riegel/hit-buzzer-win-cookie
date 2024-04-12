@@ -16,6 +16,19 @@ body{
     color: whitesmoke;
 }
 
+#hero{
+    display: flex;
+    margin-bottom: 3%;
+}
+
+#hero div {
+    display: flex;
+}
+
+#hero div:nth-child(2){
+    margin-left: 20px;
+}
+
 .cell {
     width: 50px;
     aspect-ratio: 1/1;
