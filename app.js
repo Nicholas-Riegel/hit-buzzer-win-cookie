@@ -8,7 +8,7 @@ let columnNumber = 4
 let cookiePic = null;
 
 const dropZone = document.querySelector('#dropZone')
-// this code was gotten for Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
+// this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
 dropZone.addEventListener('dragover', e=>{
     e.preventDefault()
 })
@@ -60,7 +60,8 @@ const calculateColumns = (colNo) => {
 // create cookie 
 const createCookie = () => {    
     const cookiePic = document.createElement('img')
-    cookiePic.src = './cookie-pic.png' // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
+    // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
+    cookiePic.src = './cookie-pic.png' 
     cookiePic.style.maxWidth = '47px'
     cookiePic.style.maxHeight = '47px'
     cookiePic.setAttribute('class', 'cookiePic')
@@ -79,8 +80,7 @@ const cellsClickable = (cookieNumber) => {
                 cookiePic = createCookie()
                 e.target.appendChild(cookiePic)
                 document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
-                // cookie dragging: 
-                // this code was gotten for Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
+                // enable cookie dragging: this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
                 dropZone.addEventListener('drop', e=>{
                     dropZone.appendChild(cookiePic)
                     startGame(columnNumber)
@@ -141,17 +141,10 @@ const startGame = (colNo) => {
 document.querySelector('#restart').addEventListener('click', e => {
     // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
     const parent = document.getElementById('dropZone');
-
-    // Get all children with the class 'remove'
     const childrenToRemove = parent.getElementsByClassName('cookiePic');
-
-    // Convert HTMLCollection to an array
     const childrenArray = Array.from(childrenToRemove);
-
-    // Remove each child from the parent
-    childrenArray.forEach(child => {
-    // childrenToRemove.forEach(child => {
-        parent.removeChild(child);
+    childrenArray.forEach(x => {
+        parent.removeChild(x);
     });
     startGame(columnNumber);
     // window.location.reload()
