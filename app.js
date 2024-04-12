@@ -66,31 +66,19 @@ document.querySelector('#start-btn').addEventListener('click', e => {
     startGame(columnNumber)
 })
 
-// restart action button
-// document.querySelector('#restart').addEventListener('click', e => {
-//     // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
-//     const parent = document.getElementById('dropZone');
-//     const childrenToRemove = parent.getElementsByClassName('cookiePic');
-//     const childrenArray = Array.from(childrenToRemove);
-//     childrenArray.forEach(x => {
-//         parent.removeChild(x);
-//     });
-//     playerScore = 0
-//     document.querySelector('#your-score').innerText = playerScore
-//     timeLeft = 60
-//     startGame(columnNumber);
-//     // window.location.reload()
-// })
-
 // column number action button
 document.querySelector('#getColNo').addEventListener('click', e=>{
     const inputValue = parseInt(document.querySelector('#numberColumns').value);
-    if (inputValue > 10){
-        columnNumber = 10;
-    } else if (inputValue < 4){
-        columnNumber = 4
+    if(typeof inputValue === 'number'){
+        if (inputValue > 10){
+            columnNumber = 10;
+        } else if (inputValue < 4){
+            columnNumber = 4
+        } else {
+            columnNumber = inputValue;
+        }
     } else {
-        columnNumber = inputValue;
+        columnNumber = 4
     }
     startGame(columnNumber)
 })
@@ -200,8 +188,6 @@ const startGame = (colNo) => {
     document.querySelector('h2').innerText = ''
     document.querySelector('#numberColumns').value = ''
 
-    // console.clear()
-    
     // create new board
     createBoard(colNo)
     
@@ -220,9 +206,6 @@ const startGame = (colNo) => {
     // make cells clickable etc.
     cellsClickable(cookieNumber)
     
-    // console.log('gameArray:', gameArray);
-    // console.log('rows:', rows);
-    // console.log('columns:', columns);
 }
 
 // -----------------------------------Start Game--------------------------------------------------------
