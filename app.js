@@ -9,38 +9,45 @@ let columnNumber = 4
 
 let cookiePic = null;
 
-let timeLeft = 20
+const timer = document.querySelector('#timer')
+let timeLeft = 30
+let timerOn = false;
+let timerInterval = null;
+timer.innerText = timeLeft
 
 let highScore = 0
 let playerScore = 0
 
-const timer = document.querySelector('#timer')
-timer.innerText = timeLeft
-let timerInterval = null;
+const dropZone = document.querySelector('#dropZone')
 
 const updateTimer = () => {
     // ChatGPT helped with this code: https://chat.openai.com/c/6a37ffb8-48c9-43fd-9a5a-f738bf2bf722
     timer.innerText = timeLeft
     timeLeft--
-    if (timeLeft < 0) {
+    if (timeLeft <= 0) {
         clearInterval(timerInterval);
-        timer.innerText = "Time's up!";
+        timer.innerText = "Game Over!";
+        timerOn = false;
+        if (playerScore > highScore){
+            highScore = playerScore
+            document.querySelector('#high-score').innerText = highScore
+        }
     }
 }
 
 
-// -----------------------------------QuerySelectors----------------------------------------------------
+// -----------------------------------Event Listeners----------------------------------------------------
 
 document.querySelector('#your-score').innerText = playerScore
 document.querySelector('#high-score').innerText = highScore
 
-const dropZone = document.querySelector('#dropZone')
 // this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
 dropZone.addEventListener('dragover', e=>{
     e.preventDefault()
 })
 
-document.querySelector('#restart').addEventListener('click', e => {
+// start game
+document.querySelector('#start-btn').addEventListener('click', e => {
     // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
     const parent = document.getElementById('dropZone');
     const childrenToRemove = parent.getElementsByClassName('cookiePic');
@@ -50,10 +57,32 @@ document.querySelector('#restart').addEventListener('click', e => {
     });
     playerScore = 0
     document.querySelector('#your-score').innerText = playerScore
-    startGame(columnNumber);
-    // window.location.reload()
+    timeLeft = 30
+
+    if (timerOn === false){
+        timerOn = true
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+    startGame(columnNumber)
 })
 
+// restart action button
+// document.querySelector('#restart').addEventListener('click', e => {
+//     // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
+//     const parent = document.getElementById('dropZone');
+//     const childrenToRemove = parent.getElementsByClassName('cookiePic');
+//     const childrenArray = Array.from(childrenToRemove);
+//     childrenArray.forEach(x => {
+//         parent.removeChild(x);
+//     });
+//     playerScore = 0
+//     document.querySelector('#your-score').innerText = playerScore
+//     timeLeft = 60
+//     startGame(columnNumber);
+//     // window.location.reload()
+// })
+
+// column number action button
 document.querySelector('#getColNo').addEventListener('click', e=>{
     const inputValue = parseInt(document.querySelector('#numberColumns').value);
     if (inputValue > 10){
@@ -130,7 +159,7 @@ const cellsClickable = (cookieNumber) => {
     document.querySelectorAll('.cell').forEach(x =>{
         x.addEventListener('click', e => {
             const id = parseInt(e.target.id)
-            timerInterval = setInterval(updateTimer, 1000);
+            
             if (gameArray[id] === 'o'){
                 cookiePic = createCookie()
                 e.target.appendChild(cookiePic)
@@ -140,9 +169,6 @@ const cellsClickable = (cookieNumber) => {
                     dropZone.appendChild(cookiePic)
                     playerScore = dropZone.querySelectorAll('.cookiePic').length;
                     document.querySelector('#your-score').innerText = playerScore;
-                    highScore++
-                    document.querySelector('#high-score').innerText = highScore;
-                    console.log(playerScore);
                     startGame(columnNumber)
                 })
             } else {
