@@ -23,12 +23,19 @@
     </div>
     <main>
         <section id="gameboard-container"></section>
-        <div id="dropZone">
+        <div id="dropZone-container">
             <h4>Move cookie here when found!</h4>
+            <div id="dropZone"></div>
         </div>
     </main>
-    <h2></h2>
+    <div id="game-status-div">
+        <h2>Game Status: </h2> &nbsp;
+        <h2 id="status-display"></h2>
+    </div>
+    <div id="start-stop-btns">
         <button id="start-btn">Start New Game</button>
+        <button id="stop-btn">Stop Game</button>
+    </div>
     <label for="numberColumns">You can change the number of columns from 4 to 10!
         <input type="number" id="numberColumns" min="4" max="10">
         <button id="getColNo">Enter</button>

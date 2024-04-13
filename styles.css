@@ -12,7 +12,10 @@ body{
     justify-content: space-around;
     align-items: center;
     font-family: 'Roboto', sans-serif;
-    background-color: rgb(163, 101, 221);
+    /* linear gadient from https://uigradients.com/#Skyline */
+    background: #1488CC; 
+    background: -webkit-linear-gradient( #2B32B2, #1488CC); 
+    background: linear-gradient( #2B32B2, #1488CC); 
     color: whitesmoke;
 }
 
@@ -57,15 +60,43 @@ main{
     display: grid;
 }
 
+#dropZone-container{
+    margin-left: 50px;
+    width: 200px;
+    text-align: center;
+}
+
 #dropZone {
     width: 200px;
     height: 200px;
-    background-color: gray;
-    margin-left: 50px;
     aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    /* <a href="https://www.flaticon.com/free-icons/container" title="container icons">Container icons created by Freepik - Flaticon</a> */
+    background-image: url('./assets/white-jar-copy.png');
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-#start-btn {
+#game-status-div {
+    display: flex;
+}
+
+#status-display{
+    color: rgb(241, 231, 84);
+}
+
+#start-stop-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 450px;
+}
+
+#start-btn, #stop-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,6 +105,7 @@ main{
     border-radius: 5%;
     cursor: pointer;
     white-space: nowrap;
+    width: 200px;
 }
 
 label{

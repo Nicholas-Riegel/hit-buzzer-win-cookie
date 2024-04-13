@@ -17,8 +17,10 @@ let timerInterval = null;
 let highScore = 0
 let playerScore = 0
 
+const statusDisplay = document.querySelector('#status-display')
 const dropZone = document.querySelector('#dropZone')
 const startButton = document.querySelector('#start-btn')
+const stopButton = document.querySelector('#stop-btn')
 const columnNumberButton = document.querySelector('#getColNo')
 
 const playerScoreDisplay = document.querySelector('#your-score')
@@ -33,7 +35,7 @@ highScoreDisplay.innerText = highScore
 // -----------------------------------Event Listeners----------------------------------------------------
 
 // this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
-dropZone.addEventListener('dragover', e=>{
+dropZone.addEventListener('dragover', e => {
     e.preventDefault()
 })
 
@@ -52,13 +54,14 @@ startButton.addEventListener('click', e => {
 
     if (timerOn === false){
         timerOn = true
+        timer.style.color = 'rgb(246, 71, 71)';
         timerInterval = setInterval(updateTimer, 1000);
     }
     startGame(columnNumber)
 })
 
 // column number action button
-columnNumberButton.addEventListener('click', e=>{
+columnNumberButton.addEventListener('click', e => {
     const inputValue = parseInt(document.querySelector('#numberColumns').value);
     if(typeof inputValue === 'number'){
         if (inputValue > 10){
@@ -74,6 +77,11 @@ columnNumberButton.addEventListener('click', e=>{
     startGame(columnNumber)
 })
 
+stopButton.addEventListener('click', e => {
+    clearInterval(timerInterval);
+    timerOn = false
+})
+
 // -----------------------------------Functions---------------------------------------------------------
 
 // timer function 
@@ -84,10 +92,11 @@ const updateTimer = () => {
     if (timeLeft <= 0) {
         clearInterval(timerInterval);
         timer.innerText = "Game Over!";
+        statusDisplay.innerText = 'Game Over!'
         timerOn = false;
         if (playerScore > highScore){
             highScore = playerScore
-            document.querySelector('#high-score').innerText = highScore
+            highScoreDisplay.innerText = highScore
         }
     }
 }
@@ -139,7 +148,7 @@ const calculateColumns = (colNo) => {
 const createCookie = () => {    
     const cookiePic = document.createElement('img')
     // Image author: Vincent Le Moign: https://commons.wikimedia.org/wiki/File:556-cookie.svg
-    cookiePic.src = './cookie-pic.png' 
+    cookiePic.src = './assets/cookie-pic.png' 
     cookiePic.style.maxWidth = '47px'
     cookiePic.style.maxHeight = '47px'
     cookiePic.setAttribute('class', 'cookiePic')
@@ -158,25 +167,27 @@ const cellsClickable = (cookieNumber) => {
                 if (gameArray[id] === 'o'){
                     cookiePic = createCookie()
                     e.target.appendChild(cookiePic)
-                    document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
+                    statusDisplay.innerText = 'YOU GET A COOOKIE!'
                     // enable cookie dragging: this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
                     dropZone.addEventListener('drop', e=>{
-                        dropZone.appendChild(cookiePic)
-                        playerScore = dropZone.querySelectorAll('.cookiePic').length;
-                        playerScoreDisplay.innerText = playerScore;
-                        startGame(columnNumber)
+                        if (timerOn === true){
+                            dropZone.appendChild(cookiePic)
+                            playerScore = dropZone.querySelectorAll('.cookiePic').length;
+                            playerScoreDisplay.innerText = playerScore;
+                            startGame(columnNumber)
+                        }
                     })
                 } else {
                     e.target.innerText = 'x'
-                    document.querySelector('h2').innerText = '';
+                    statusDisplay.innerText = '';
                     rows.forEach(x => {
                         if (x.includes(id) && x.includes(cookieNumber)){    
-                            document.querySelector('h2').innerText = "It's in this row!";
+                            statusDisplay.innerText = "It's in this row!";
                         }
                     })
                     columns.forEach(x => {
                         if (x.includes(id) && x.includes(cookieNumber)){
-                            document.querySelector('h2').innerText = "It's in this column!";
+                            statusDisplay.innerText = "It's in this column!";
                         }
                     })
                 }
@@ -193,7 +204,7 @@ const startGame = (colNo) => {
     if (document.querySelector('#gameboard')){
         document.querySelector('#gameboard').remove();
     }
-    document.querySelector('h2').innerText = ''
+    statusDisplay.innerText = ''
     document.querySelector('#numberColumns').value = ''
 
     // create new board
