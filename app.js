@@ -13,33 +13,24 @@ const timer = document.querySelector('#timer')
 let timeLeft = 30
 let timerOn = false;
 let timerInterval = null;
-timer.innerText = timeLeft
 
 let highScore = 0
 let playerScore = 0
 
 const dropZone = document.querySelector('#dropZone')
+const startButton = document.querySelector('#start-btn')
+const columnNumberButton = document.querySelector('#getColNo')
 
-const updateTimer = () => {
-    // ChatGPT helped with this code: https://chat.openai.com/c/6a37ffb8-48c9-43fd-9a5a-f738bf2bf722
-    timer.innerText = timeLeft
-    timeLeft--
-    if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        timer.innerText = "Game Over!";
-        timerOn = false;
-        if (playerScore > highScore){
-            highScore = playerScore
-            document.querySelector('#high-score').innerText = highScore
-        }
-    }
-}
+const playerScoreDisplay = document.querySelector('#your-score')
+const highScoreDisplay = document.querySelector('#high-score')
 
+// -----------------------------------Start Page Defaults----------------------------------------------------
+
+timer.innerText = timeLeft
+playerScoreDisplay.innerText = playerScore
+highScoreDisplay.innerText = highScore
 
 // -----------------------------------Event Listeners----------------------------------------------------
-
-document.querySelector('#your-score').innerText = playerScore
-document.querySelector('#high-score').innerText = highScore
 
 // this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
 dropZone.addEventListener('dragover', e=>{
@@ -47,7 +38,7 @@ dropZone.addEventListener('dragover', e=>{
 })
 
 // start game
-document.querySelector('#start-btn').addEventListener('click', e => {
+startButton.addEventListener('click', e => {
     // chatGPT definitely helped with this code: https://chat.openai.com/c/b5238c30-289f-4511-8ce2-47197b7ed0f8
     const parent = document.getElementById('dropZone');
     const childrenToRemove = parent.getElementsByClassName('cookiePic');
@@ -67,7 +58,7 @@ document.querySelector('#start-btn').addEventListener('click', e => {
 })
 
 // column number action button
-document.querySelector('#getColNo').addEventListener('click', e=>{
+columnNumberButton.addEventListener('click', e=>{
     const inputValue = parseInt(document.querySelector('#numberColumns').value);
     if(typeof inputValue === 'number'){
         if (inputValue > 10){
@@ -84,6 +75,22 @@ document.querySelector('#getColNo').addEventListener('click', e=>{
 })
 
 // -----------------------------------Functions---------------------------------------------------------
+
+// timer function 
+const updateTimer = () => {
+    // ChatGPT helped with this code: https://chat.openai.com/c/6a37ffb8-48c9-43fd-9a5a-f738bf2bf722
+    timer.innerText = timeLeft
+    timeLeft--
+    if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        timer.innerText = "Game Over!";
+        timerOn = false;
+        if (playerScore > highScore){
+            highScore = playerScore
+            document.querySelector('#high-score').innerText = highScore
+        }
+    }
+}
 
 // create board
 const createBoard = (colNo) => {
@@ -142,36 +149,37 @@ const createCookie = () => {
 }
 
 // make cells clickable, game playable
-const cellsClickable = (cookieNumber) => {
-    
+const cellsClickable = (cookieNumber) => {    
     document.querySelectorAll('.cell').forEach(x =>{
         x.addEventListener('click', e => {
-            const id = parseInt(e.target.id)
-            
-            if (gameArray[id] === 'o'){
-                cookiePic = createCookie()
-                e.target.appendChild(cookiePic)
-                document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
-                // enable cookie dragging: this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
-                dropZone.addEventListener('drop', e=>{
-                    dropZone.appendChild(cookiePic)
-                    playerScore = dropZone.querySelectorAll('.cookiePic').length;
-                    document.querySelector('#your-score').innerText = playerScore;
-                    startGame(columnNumber)
-                })
-            } else {
-                e.target.innerText = 'x'
-                document.querySelector('h2').innerText = '';
-                rows.forEach(x => {
-                    if (x.includes(id) && x.includes(cookieNumber)){    
-                        document.querySelector('h2').innerText = "It's in this row!";
-                    }
-                })
-                columns.forEach(x => {
-                    if (x.includes(id) && x.includes(cookieNumber)){
-                        document.querySelector('h2').innerText = "It's in this column!";
-                    }
-                })
+            if (timerOn){
+                const id = parseInt(e.target.id)
+                
+                if (gameArray[id] === 'o'){
+                    cookiePic = createCookie()
+                    e.target.appendChild(cookiePic)
+                    document.querySelector('h2').innerText = 'YOU WIN A COOOKIE!'
+                    // enable cookie dragging: this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
+                    dropZone.addEventListener('drop', e=>{
+                        dropZone.appendChild(cookiePic)
+                        playerScore = dropZone.querySelectorAll('.cookiePic').length;
+                        playerScoreDisplay.innerText = playerScore;
+                        startGame(columnNumber)
+                    })
+                } else {
+                    e.target.innerText = 'x'
+                    document.querySelector('h2').innerText = '';
+                    rows.forEach(x => {
+                        if (x.includes(id) && x.includes(cookieNumber)){    
+                            document.querySelector('h2').innerText = "It's in this row!";
+                        }
+                    })
+                    columns.forEach(x => {
+                        if (x.includes(id) && x.includes(cookieNumber)){
+                            document.querySelector('h2').innerText = "It's in this column!";
+                        }
+                    })
+                }
             }
         })
     })
