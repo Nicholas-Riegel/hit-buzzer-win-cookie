@@ -34,10 +34,6 @@ highScoreDisplay.innerText = highScore
 
 // -----------------------------------Event Listeners----------------------------------------------------
 
-// this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
-dropZone.addEventListener('dragover', e => {
-    e.preventDefault()
-})
 
 // start game
 startButton.addEventListener('click', e => {
@@ -77,6 +73,7 @@ columnNumberButton.addEventListener('click', e => {
     startGame(columnNumber)
 })
 
+// this turns off the timer when stop button is pressed
 stopButton.addEventListener('click', e => {
     clearInterval(timerInterval);
     timerOn = false
@@ -89,14 +86,17 @@ const updateTimer = () => {
     // ChatGPT helped with this code: https://chat.openai.com/c/6a37ffb8-48c9-43fd-9a5a-f738bf2bf722
     timer.innerText = timeLeft
     timeLeft--
-    if (timeLeft <= 0) {
+    if (timeLeft < 0) {
         clearInterval(timerInterval);
-        timer.innerText = "Game Over!";
-        statusDisplay.innerText = 'Game Over!'
         timerOn = false;
         if (playerScore > highScore){
             highScore = playerScore
             highScoreDisplay.innerText = highScore
+        }
+        if (playerScore === 0){
+            statusDisplay.innerText = "Game Over! You Lose! You didn't find any cookies!"
+        } else {
+            statusDisplay.innerText = "Game Over! You Win! You found some cookies!"
         }
     }
 }
@@ -152,49 +152,77 @@ const createCookie = () => {
     cookiePic.style.maxWidth = '47px'
     cookiePic.style.maxHeight = '47px'
     cookiePic.setAttribute('class', 'cookiePic')
-    cookiePic.setAttribute('cursor', 'move')
-    cookiePic.setAttribute('draggable', 'true')
     return cookiePic;
 }
 
+const cookieFoundAction = (e) => {
+    
+    cookiePic = createCookie()
+    e.target.appendChild(cookiePic)
+    statusDisplay.innerText = 'YOU GET A COOOKIE!'
+    if (window.innerWidth > 810){
+        cookiePic.setAttribute('cursor', 'move')
+        cookiePic.setAttribute('draggable', 'true')
+        // enable cookie dragging: this code was gotten from Youtube content creator "Darwin Tech": 
+        // https://www.youtube.com/watch?v=_G8G1OrEOrI
+        // this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
+        dropZone.addEventListener('dragover', e => {
+            e.preventDefault()
+        })
+        dropZone.addEventListener('drop', e=>{
+            if (timerOn === true){
+                dropZone.appendChild(cookiePic)
+                playerScore = dropZone.querySelectorAll('.cookiePic').length;
+                playerScoreDisplay.innerText = playerScore;
+                startGame(columnNumber)
+            }
+        })
+    } else if (timerOn === true){
+            dropZone.appendChild(cookiePic)
+            playerScore = dropZone.querySelectorAll('.cookiePic').length;
+            playerScoreDisplay.innerText = playerScore;
+            startGame(columnNumber)
+    }
+}
+
+const cookieNotFoundAction = (e, id) => {
+    e.target.innerText = 'x'
+    statusDisplay.innerText = '';
+    rows.forEach(x => {
+        if (x.includes(id) && x.includes(cookieNumber)){    
+            statusDisplay.innerText = "It's in this row!";
+        }
+    })
+    columns.forEach(x => {
+        if (x.includes(id) && x.includes(cookieNumber)){
+            statusDisplay.innerText = "It's in this column!";
+        }
+    })
+}
+
+
 // make cells clickable, game playable
-const cellsClickable = (cookieNumber) => {    
+const cellsClickable = () => {    
     document.querySelectorAll('.cell').forEach(x =>{
         x.addEventListener('click', e => {
             if (timerOn){
+
                 const id = parseInt(e.target.id)
                 
                 if (gameArray[id] === 'o'){
-                    cookiePic = createCookie()
-                    e.target.appendChild(cookiePic)
-                    statusDisplay.innerText = 'YOU GET A COOOKIE!'
-                    // enable cookie dragging: this code was gotten from Youtube content creator "Darwin Tech": https://www.youtube.com/watch?v=_G8G1OrEOrI
-                    dropZone.addEventListener('drop', e=>{
-                        if (timerOn === true){
-                            dropZone.appendChild(cookiePic)
-                            playerScore = dropZone.querySelectorAll('.cookiePic').length;
-                            playerScoreDisplay.innerText = playerScore;
-                            startGame(columnNumber)
-                        }
-                    })
+                
+                    cookieFoundAction(e)
+
                 } else {
-                    e.target.innerText = 'x'
-                    statusDisplay.innerText = '';
-                    rows.forEach(x => {
-                        if (x.includes(id) && x.includes(cookieNumber)){    
-                            statusDisplay.innerText = "It's in this row!";
-                        }
-                    })
-                    columns.forEach(x => {
-                        if (x.includes(id) && x.includes(cookieNumber)){
-                            statusDisplay.innerText = "It's in this column!";
-                        }
-                    })
+                    
+                    cookieNotFoundAction(e, id)
                 }
             }
         })
     })
 }
+
+
 
 const startGame = (colNo) => {
     // clear everything
@@ -223,7 +251,7 @@ const startGame = (colNo) => {
     calculateRows(colNo)
     
     // make cells clickable etc.
-    cellsClickable(cookieNumber)
+    cellsClickable()
     
 }
 

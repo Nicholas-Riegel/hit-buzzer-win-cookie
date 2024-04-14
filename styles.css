@@ -53,7 +53,7 @@ body{
 main{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
 #gameboard {
@@ -75,8 +75,8 @@ main{
     align-content: center;
     flex-wrap: wrap;
     /* <a href="https://www.flaticon.com/free-icons/container" title="container icons">Container icons created by Freepik - Flaticon</a> */
-    background-image: url('./assets/white-jar-copy.png');
-    background-size: 90%;
+    background-image: url('./assets/white-jar2.png');
+    background-size: 75%;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -128,4 +128,11 @@ label input {
     height: 100%;
     padding-left: 5px;
     margin-left: 10px;
+}
+
+@media screen and (max-width: 810px){
+    main{
+        flex-direction: column;
+        align-items: center;
+    }
 }
