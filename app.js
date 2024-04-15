@@ -5,7 +5,7 @@ let rows = []
 let columns = []
 
 let cookieNumber = null;
-let columnNumber = 4
+let columnNumber = 5
 
 let cookiePic = null;
 
@@ -59,16 +59,16 @@ startButton.addEventListener('click', e => {
 // column number action button
 columnNumberButton.addEventListener('click', e => {
     const inputValue = parseInt(document.querySelector('#numberColumns').value);
-    if(typeof inputValue === 'number'){
+    if(inputValue && typeof inputValue === 'number'){
         if (inputValue > 10){
             columnNumber = 10;
-        } else if (inputValue < 4){
-            columnNumber = 4
+        } else if (inputValue < 5){
+            columnNumber = 5
         } else {
             columnNumber = inputValue;
         }
     } else {
-        columnNumber = 4
+        columnNumber = 5
     }
     startGame(columnNumber)
 })

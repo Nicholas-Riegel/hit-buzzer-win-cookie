@@ -131,8 +131,29 @@ label input {
 }
 
 @media screen and (max-width: 810px){
+    body{
+        text-align: center;
+        height: 120svh;
+    }
     main{
         flex-direction: column;
         align-items: center;
+        /* justify-content: center; */
+    }
+    #dropZone-container{
+        margin-left: 0;
+    }
+
+    #start-stop-btns{
+        flex-direction: column;
+        width: initial;
+    }
+
+    #stop-btn{
+        margin-top: 20px;
+    }
+
+    label{
+        display: none;
     }
 }
