@@ -69,4 +69,4 @@
 //     console.log(inputValue);
 // }
 
-console.log(typeof NaN);
+// console.log(typeof NaN);
