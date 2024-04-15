@@ -2,7 +2,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* border: 1px dotted black; */
 }
 
 body{
@@ -133,7 +132,6 @@ label input {
 @media screen and (max-width: 810px){
     body{
         text-align: center;
-        height: 120svh;
     }
     main{
         flex-direction: column;
