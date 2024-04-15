@@ -2,7 +2,7 @@
 
 !['Screenshot of game'](assets/game-screenshot.png)
 
-### Game may be viewed here: [https://nicholas-riegel.github.io/hit-buzzer-win-cookie/](https://nicholas-riegel.github.io/hit-buzzer-win-cookie/)
+### Game may be played here: [https://nicholas-riegel.github.io/hit-buzzer-win-cookie/](https://nicholas-riegel.github.io/hit-buzzer-win-cookie/)
 
 ## Description
 
