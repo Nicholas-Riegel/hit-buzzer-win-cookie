@@ -1,6 +1,6 @@
 # hit-buzzer-win-cookie
 
-!['Screenshot of game'](https://file%2B.vscode-resource.vscode-cdn.net/Users/nicholas/GA/projects/hit-buzzer-win-cookie/assets/game-screenshot.png?version%3D1713196671624)
+!['Screenshot of game'](assets/game-screenshot.png)
 
 ### Game may be viewed here: [https://nicholas-riegel.github.io/hit-buzzer-win-cookie/](https://nicholas-riegel.github.io/hit-buzzer-win-cookie/)
 
