@@ -1,43 +1,15 @@
 # hit-buzzer-win-cookie
 
-## Description
-
-User gets certain number of tries to find cookie on grid.
+!['Screenshot of game'](https://file%2B.vscode-resource.vscode-cdn.net/Users/nicholas/GA/projects/hit-buzzer-win-cookie/assets/game-screenshot.png?version%3D1713196671624)
 
 ### Game may be viewed here: [https://nicholas-riegel.github.io/hit-buzzer-win-cookie/](https://nicholas-riegel.github.io/hit-buzzer-win-cookie/)
 
-## Project Plan
+## Description
 
-Wednesday, April 10, 2024
-
-- [ ] Create project plan
-- [ ] Work on MVP
-
-Thursday, April 11, 2024
-
-- [ ] Complete MVP
-- [ ] Upload on GitHub Pages
-
-Friday, April 12, 2024
-
-- [ ] Create 9 square board
-- [ ] Make squares clickable
-- [ ] Make user able to find cookie
-
-Saturday, April 13, 2024
-
-- [ ] work on styling
-- [ ] make project responsive
-- [ ] upload on Github
-
-Sunday, April 14, 2024
-
-- [ ] continue to make improvements
-
-Monday, April 15, 2024
-
-- [ ] continue to make improvements
-
-Tuesday, April 16, 2024
-
-- [ ] deliver game by EOD
+* User has to try to find as many cookies as possible in 30 seconds. 
+* User wins if they find at least one cookie in the time limit.
+* User loses if they don't find any cookies in the time limit.
+* On larger screens user must then click and drag the found cookie to the cookie jar. 
+* On larger screens user can make the game harder by increasing the number of columns from 5 to 10.
+* On smaller screens dragging is not optimal so cookie moves to the jar automatically when found. 
+* On smaller screens ability to increase number of columns is removed due to size constrains, however game is still playable. 
