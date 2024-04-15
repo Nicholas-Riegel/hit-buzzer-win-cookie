@@ -265,7 +265,7 @@ const cellsClickable = () => {
     document.querySelectorAll('.cell').forEach(x =>{
         // make each cell clickable
         x.addEventListener('click', e => {
-            // if timer is still on get id of cess
+            // if timer is still on get id of cell
             if (timerOn){
 
                 const id = parseInt(e.target.id)
@@ -276,8 +276,10 @@ const cellsClickable = () => {
                     cookieFoundAction(e)
 
                 } else {
+
                 // otherwise call cookieNotFoundAction function
                     cookieNotFoundAction(e, id)
+                    
                 }
             }
         })
