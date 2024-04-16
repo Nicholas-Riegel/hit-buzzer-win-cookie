@@ -12,4 +12,4 @@
 * On larger screens user must then click and drag the found cookie to the cookie jar. 
 * On larger screens user can make the game harder by increasing the number of columns from 5 to 10.
 * On smaller screens dragging is not optimal so cookie moves to the jar automatically when found. 
-* On smaller screens ability to increase number of columns is removed due to size constrains, however game is still playable. 
+* On smaller screens ability to increase number of columns is removed due to size constrains, however game is still fully functional. 

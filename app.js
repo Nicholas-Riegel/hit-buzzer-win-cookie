@@ -75,7 +75,7 @@ startButton.addEventListener('click', e => {
 // column number action button
 columnNumberButton.addEventListener('click', e => {
     // get number from user input
-    const inputValue = parseInt(document.querySelector('#numberColumns').value);
+    const inputValue = parseInt(document.querySelector('#numberColumns').value, 10);
     // if input value is true and a number, then set value
     if(inputValue && typeof inputValue === 'number'){
         if (inputValue > 10){
@@ -268,7 +268,7 @@ const cellsClickable = () => {
             // if timer is still on get id of cell
             if (timerOn){
 
-                const id = parseInt(e.target.id)
+                const id = parseInt(e.target.id, 10)
                 
                 // if 'o' is at that id number, call cookieFoundAction function
                 if (gameArray[id] === 'o'){
