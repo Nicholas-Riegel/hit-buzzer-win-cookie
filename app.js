@@ -1,11 +1,11 @@
 // -----------------------------------Constants and Variables-------------------------------------------
 
 // this is used to determin where the cookie is
-let gameArray = []
+const gameArray = []
 
 // these are used to determine if the user is in the right row or column (hints are given to the player when this is the case)
-let rows = []
-let columns = []
+const rows = []
+const columns = []
 
 // the number in the game array where the cookie is
 let cookieNumber = null;
@@ -152,10 +152,10 @@ const createBoard = (colNo) => {
 
 // calculate rows
 // this is needed to programatically get rows of different sized boards, in order to determine whether user is in the right row, i.e.
-// const firstRow = [0, 1, 2, 3]
-// const secondRow = [4, 5, 6, 7]
-// const thirdRow = [8, 9, 10, 11]
-// const fourthRow = [12, 13, 14, 15]
+// first row    [0, 1, 2, 3]
+// second row   [4, 5, 6, 7]
+// third row    [8, 9, 10, 11]
+// fourth row   [12, 13, 14, 15]
 const calculateRows = (colNo) => {
     let k = 0
     for (let i = 0; i < colNo; i++){
@@ -170,10 +170,10 @@ const calculateRows = (colNo) => {
 
 // calculate columns
 // this is needed to programatically get columns of different sized boards, in order to determine whether user is in the right column, i.e.
-// const firstColumn = [0, 4, 8, 12]
-// const secondColumn = [1, 5, 9, 13]
-// const thirdColumn = [2, 6, 10, 14]
-// const fourthColumn = [3, 7, 11, 15]
+// first column     [0, 4, 8, 12]
+// second column    [1, 5, 9, 13]
+// third column     [2, 6, 10, 14]
+// fourth column    [3, 7, 11, 15]
 const calculateColumns = (colNo) => {
     let k = 0
     for (let i = 0; i < colNo; i++){
@@ -290,15 +290,21 @@ const cellsClickable = () => {
 
 const startGame = (colNo) => {
     // clear everything
-    gameArray = []
-    rows = []
-    columns = []
+    gameArray.length = 0;
+    rows.length = 0;
+    columns.length = 0;
     if (document.querySelector('#gameboard')){
         document.querySelector('#gameboard').remove();
     }
     statusDisplay.innerText = ''
     document.querySelector('#numberColumns').value = ''
 
+    // hardcode column number for screens less than 520;
+    // 520 is the smallest width you can have 10 columns
+    if (window.innerWidth < 520){
+        columnNumber = 5;
+    }
+    
     // create new board
     createBoard(colNo)
     
